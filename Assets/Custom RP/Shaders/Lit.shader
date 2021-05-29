@@ -46,6 +46,7 @@ Shader "Custom RP/Lit"
 		{
 			Tags { "LightMode" = "ShadowCaster" }
 
+			//disable writing color data
 			ColorMask 0
 
 			HLSLPROGRAM
@@ -53,9 +54,13 @@ Shader "Custom RP/Lit"
 			#pragma target 3.5
 			#pragma shader_feature _CLIPPING
 			#pragma multi_compile_instancing
+
 			#pragma vertex ShadowCasterPassVertex
 			#pragma fragment ShadowCasterPassFragment
+
 			#include "ShadowCasterPass.hlsl"
+
+			#pragma enable_d3d11_debug_symbols
 
 			ENDHLSL
 		}

@@ -42,7 +42,7 @@ Varyings ShadowCasterPassVertex(Attributes input)
 	return output;
 }
 
-float4 ShadowCasterPassFragment(Varyings input)
+void ShadowCasterPassFragment(Varyings input)
 {
 	UNITY_SETUP_INSTANCE_ID(input);
 
@@ -54,7 +54,6 @@ float4 ShadowCasterPassFragment(Varyings input)
 		clip(base.a - UNITY_ACCESS_INSTANCED_PROP(UnityPerMaterial, _Cutoff));
 	#endif
 
-	return float4(1.0, 1.0, 0.0, 1.0);
 }
 
 #endif

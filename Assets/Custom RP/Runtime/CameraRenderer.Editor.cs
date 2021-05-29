@@ -8,10 +8,13 @@ partial class CameraRenderer
 
     partial void DrawUnsupportedShaders();
 
+    //draw lines of camera
     partial void DrawGizmos();
 
+    //draw ui button
     partial void PrepareForSceneWindow();
 
+    //make buffer's name equal to camera's, ensure each camera gets its own scope
     partial void PrepareBuffer();
 
 #if UNITY_EDITOR
@@ -19,6 +22,8 @@ partial class CameraRenderer
 
     string SampleName { get; set; }
 
+
+    //cover all unity's default shaders
     static ShaderTagId[] legacyShaderTagIds =
     {
         new ShaderTagId("Always"),
@@ -45,6 +50,7 @@ partial class CameraRenderer
             drawingSettings.SetShaderPassName(i, legacyShaderTagIds[i]);
         }
 
+        //dont care the other settings
         var filterSettings = FilteringSettings.defaultValue;
 
         context.DrawRenderers(cullingResults, ref drawingSettings, ref filterSettings);
@@ -69,6 +75,7 @@ partial class CameraRenderer
 
     partial void PrepareBuffer()
     {
+        //see in the Profiler
         Profiler.BeginSample("Editor Only");
         buffer.name = SampleName = camera.name;
         Profiler.EndSample();

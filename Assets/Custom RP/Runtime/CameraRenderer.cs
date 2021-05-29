@@ -33,6 +33,8 @@ public partial class CameraRenderer
 
         buffer.BeginSample(SampleName);
         ExecuteBuffer();
+        
+        //set up the lighting, shadows first
         lighting.Setup(context, cullingResults, shadowSettings);
         buffer.EndSample(SampleName);
         
@@ -40,9 +42,13 @@ public partial class CameraRenderer
         Setup();
 
         DrawVisibleGeometry(useDynamicBatching, useGPUInstancing);
+        //draw all unsupported shaders
         DrawUnsupportedShaders();
+        //draw lines of camera
         DrawGizmos();
+
         lighting.Cleanup();
+
         Submit();
     }
 
@@ -50,6 +56,7 @@ public partial class CameraRenderer
     {
         //apply camera's properties to the context: view or projection matrix or others
         context.SetupCameraProperties(camera);
+        //combine results of both cameras  
         CameraClearFlags flags = camera.clearFlags;
         //clear the earlier content of the RT to guarantee proper rendering
         buffer.ClearRenderTarget(flags <= CameraClearFlags.Depth, 
@@ -59,6 +66,7 @@ public partial class CameraRenderer
         ExecuteBuffer(); 
     }
 
+    //enabel dynamic batching or gpu instancing
     void DrawVisibleGeometry(bool useDynamicBatching, bool useGPUInstancing)
     {
         //先画不透明物体
@@ -105,6 +113,7 @@ public partial class CameraRenderer
     {;
         if (camera.TryGetCullingParameters(out ScriptableCullingParameters p))
         {
+            //shadow distance is set via the culling parameters
             p.shadowDistance = Mathf.Min(maxShadowDistance, camera.farClipPlane);
             //actual Culling is done by invoking Cull on the context, produces a CullingResults struct
             cullingResults = context.Cull(ref p);

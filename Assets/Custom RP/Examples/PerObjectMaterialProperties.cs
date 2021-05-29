@@ -34,4 +34,9 @@ public class PerObjectMaterialProperties : MonoBehaviour
         block.SetFloat(smoothnessId, smoothness);
         GetComponent<Renderer>().SetPropertyBlock(block);
     }
+
+    private void Awake()
+    {
+        OnValidate();
+    }
 }
