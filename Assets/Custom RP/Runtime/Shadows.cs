@@ -21,6 +21,11 @@ public class Shadows
 
     static int dirShadowAtlasId = Shader.PropertyToID("_DirectionalShadowAtlas");
     static int dirShadowMatricesId = Shader.PropertyToID("_DirectionalShadowMatrices");
+    static int cascadeCountId = Shader.PropertyToID("_CascadeCount");
+    static int cascadeCullingSpheresId = Shader.PropertyToID("_CascadeCullingSpheres");
+    static int shadowDistanceFadeId = Shader.PropertyToID("_ShadowDistanceFade");
+
+    static Vector4[] cascadeCullingSpheres = new Vector4[maxCascades];
 
     static Matrix4x4[] dirShadowMatrices = new Matrix4x4[maxShadowedDirectionalLightCount * maxCascades];
 
@@ -92,7 +97,14 @@ public class Shadows
         {
             RenderDirectionalShadows(i, split, tileSize);
         }
+
+        buffer.SetGlobalInt(cascadeCountId, settings.directional.cascadeCount);
+        buffer.SetGlobalVectorArray(cascadeCullingSpheresId, cascadeCullingSpheres);
         buffer.SetGlobalMatrixArray(dirShadowMatricesId, dirShadowMatrices);
+
+        float f = 1f - settings.directional.cascadeFade;
+        buffer.SetGlobalVector(shadowDistanceFadeId, new Vector4(1f / settings.maxDistance, 1f / settings.distanceFade, 1f / (1f - f*f)));
+
         buffer.EndSample(bufferName);
         ExecuteBuffer();
     }
@@ -112,6 +124,13 @@ public class Shadows
             //splitData contains information about how shadow-casting objects should be culled
             shadowSettings.splitData = splitData;
 
+            if(index == 0)
+            {
+                Vector4 cullingSphere = splitData.cullingSphere;
+                cullingSphere.w *= cullingSphere.w;
+                cascadeCullingSpheres[i] = cullingSphere;
+            }
+
             //apply the view and projection matrices
             //conversion matrix from world space to light space
             int tileIndex = tileOffset + i;
@@ -119,8 +138,10 @@ public class Shadows
 
             buffer.SetViewProjectionMatrices(viewMatrix, projectionMatrix);
 
+
             ExecuteBuffer();
             context.DrawShadows(ref shadowSettings);
+
         }
         
 
