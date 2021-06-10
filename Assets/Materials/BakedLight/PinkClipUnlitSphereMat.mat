@@ -7,13 +7,13 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: YellowClipMat
-  m_Shader: {fileID: 4800000, guid: 2bb34d71b0ad00b46bcaf0618a350ea3, type: 3}
-  m_ShaderKeywords: _CLIPPING _RECEIVE_SHADOWS _SHADOWS_CLIP
+  m_Name: PinkClipUnlitSphereMat
+  m_Shader: {fileID: 4800000, guid: e264167e396674341993901050ade573, type: 3}
+  m_ShaderKeywords: _CLIPPING
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
-  m_CustomRenderQueue: 2450
+  m_CustomRenderQueue: -1
   stringTagMap: {}
   disabledShaderPasses: []
   m_SavedProperties:
@@ -62,27 +62,23 @@ Material:
     m_Floats:
     - _BumpScale: 1
     - _CLIPPING: 1
-    - _Cutoff: 0.49
+    - _Cutoff: 0.383
     - _DetailNormalMapScale: 1
-    - _DstBlend: 10
+    - _DstBlend: 0
     - _GlossMapScale: 1
     - _Glossiness: 0.5
     - _GlossyReflections: 1
-    - _Metallic: 0.051
+    - _Metallic: 0
     - _Mode: 0
     - _OcclusionStrength: 1
     - _Parallax: 0.02
-    - _PremulAlpha: 0
-    - _ReceiveShadows: 1
-    - _Shadows: 1
-    - _Smoothness: 0.315
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
-    - _SrcBlend: 5
+    - _SrcBlend: 1
     - _UVSec: 0
     - _ZWrite: 1
     m_Colors:
-    - _BaseColor: {r: 0.8301887, g: 0.6403545, b: 0.23104309, a: 1}
+    - _BaseColor: {r: 0.7830189, g: 0.13665895, b: 0.43018278, a: 1}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
   m_BuildTextureStacks: []

@@ -32,5 +32,28 @@ Shader "Custom RP/Unlit"
 			ENDHLSL
 		}
 
+		Pass
+		{
+			Tags { "LightMode" = "ShadowCaster" }
+
+			//disable writing color data
+			ColorMask 0
+
+			HLSLPROGRAM
+
+			#pragma target 3.5
+			#pragma shader_feature _ _SHADOWS_CLIP _SHADOW_DITHER 
+			#pragma multi_compile_instancing
+
+			#pragma vertex ShadowCasterPassVertex
+			#pragma fragment ShadowCasterPassFragment
+
+			#include "ShadowCasterPass.hlsl"
+
+			#pragma enable_d3d11_debug_symbols
+
+			ENDHLSL
+		}
+
 	}
 }

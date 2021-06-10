@@ -74,7 +74,7 @@ public partial class CameraRenderer
         //setting the criteria property of the sorting settings
         var sortingSettings = new SortingSettings(camera) { criteria = SortingCriteria.CommonOpaque };
         //unlitShaderTagId as the first argument
-        var drawingSettings = new DrawingSettings(unlitShaderTagId, sortingSettings) { enableDynamicBatching = useDynamicBatching, enableInstancing = useGPUInstancing };
+        var drawingSettings = new DrawingSettings(unlitShaderTagId, sortingSettings) { enableDynamicBatching = useDynamicBatching, enableInstancing = useGPUInstancing, perObjectData = PerObjectData.Lightmaps };
         drawingSettings.SetShaderPassName(1, litShaderTagId);
         //render queue range indicates which render queues are allowed
         var filteringSettings = new FilteringSettings(RenderQueueRange.opaque);
